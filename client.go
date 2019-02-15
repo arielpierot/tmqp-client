@@ -1,16 +1,11 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
-	"net"
-	"os"
-	"strings"
-	"tmqp-api"
+	"github.com/ArielPierot/tmqp-api-client"
 )
 
 func main() {
 
-	api.Handshake()
+	tmqp.Handshake()
 
 }
