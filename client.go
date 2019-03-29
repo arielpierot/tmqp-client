@@ -19,14 +19,19 @@ func main() {
 		queue, _ := r.ReadString('\n')
 		tmqp.NewQueue(conn, queue)
 
-		tmqp.Consume(conn, queue)
+		messages := tmqp.Consume(conn, queue)
 
-		for {
+		for i := 0; i < 2; i++ {
 			fmt.Print("=> ")
 			message, _ := r.ReadString('\n')
 			tmqp.Publish(conn, "Ariel", queue, message)
 		}
 
+		go func() {
+			for m := range messages {
+				fmt.Printf("Received from %s: %s\n", m.Sender, m.Content)
+			}
+		}()
 	}
 
 }
